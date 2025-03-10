@@ -5,25 +5,25 @@
 namespace InventoryManagmentSystem.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class addcolumn : Migration
+    public partial class DeleteidfromSaleDetails : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<decimal>(
-                name: "unitPrice",
-                table: "SalesDetails",
-                type: "decimal(18,2)",
-                nullable: false,
-                defaultValue: 0m);
+            migrationBuilder.DropColumn(
+                name: "Id",
+                table: "SalesDetails");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "unitPrice",
-                table: "SalesDetails");
+            migrationBuilder.AddColumn<int>(
+                name: "Id",
+                table: "SalesDetails",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
         }
     }
 }

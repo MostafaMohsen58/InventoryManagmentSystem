@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManagmentSystem.DAL.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    [Migration("20250307151121_addcolumn")]
-    partial class addcolumn
+    [Migration("20250309195521_DeleteidfromSaleDetails")]
+    partial class DeleteidfromSaleDetails
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,6 +102,48 @@ namespace InventoryManagmentSystem.DAL.Migrations
                     b.HasIndex("SupplierId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            CategoryId = 2,
+                            Name = "Dell XPS 13",
+                            Price = 1200.00m,
+                            SupplierId = 1
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            CategoryId = 3,
+                            Name = "HP Spectre x360",
+                            Price = 1300.00m,
+                            SupplierId = 2
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            CategoryId = 4,
+                            Name = "MacBook Pro 14",
+                            Price = 2000.00m,
+                            SupplierId = 3
+                        },
+                        new
+                        {
+                            ProductId = 4,
+                            CategoryId = 5,
+                            Name = "Lenovo ThinkPad X1 Carbon",
+                            Price = 1500.00m,
+                            SupplierId = 4
+                        },
+                        new
+                        {
+                            ProductId = 5,
+                            CategoryId = 2,
+                            Name = "Dell Inspiron 15",
+                            Price = 800.00m,
+                            SupplierId = 1
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.Sale", b =>
@@ -134,9 +176,6 @@ namespace InventoryManagmentSystem.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SaleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -176,6 +215,78 @@ namespace InventoryManagmentSystem.DAL.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Stocks");
+
+                    b.HasData(
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 1,
+                            Quantity = 50,
+                            Type = "Supply"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 5, 0, 0, DateTimeKind.Utc),
+                            ProductId = 1,
+                            Quantity = 20,
+                            Type = "Sale"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 10, 0, 0, DateTimeKind.Utc),
+                            ProductId = 2,
+                            Quantity = 60,
+                            Type = "Supply"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 15, 0, 0, DateTimeKind.Utc),
+                            ProductId = 2,
+                            Quantity = 30,
+                            Type = "Sale"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 20, 0, 0, DateTimeKind.Utc),
+                            ProductId = 3,
+                            Quantity = 40,
+                            Type = "Supply"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 25, 0, 0, DateTimeKind.Utc),
+                            ProductId = 3,
+                            Quantity = 10,
+                            Type = "Sale"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 30, 0, 0, DateTimeKind.Utc),
+                            ProductId = 4,
+                            Quantity = 35,
+                            Type = "Supply"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 35, 0, 0, DateTimeKind.Utc),
+                            ProductId = 4,
+                            Quantity = 15,
+                            Type = "Sale"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 40, 0, 0, DateTimeKind.Utc),
+                            ProductId = 5,
+                            Quantity = 80,
+                            Type = "Supply"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 45, 0, 0, DateTimeKind.Utc),
+                            ProductId = 5,
+                            Quantity = 50,
+                            Type = "Sale"
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.Supplier", b =>

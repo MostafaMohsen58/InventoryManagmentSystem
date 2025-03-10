@@ -44,12 +44,12 @@ namespace DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>().HasData(
-    new Category { Id = 1, Name = "Laptops" },
-    new Category { Id = 2, Name = "Dell Laptops" },
-    new Category { Id = 3, Name = "HP Laptops" },
-    new Category { Id = 4, Name = "Apple Laptops" },
-    new Category { Id = 5, Name = "Lenovo Laptops" }
-);
+                 new Category { Id = 1, Name = "Laptops" },
+                 new Category { Id = 2, Name = "Dell Laptops" },
+                 new Category { Id = 3, Name = "HP Laptops" },
+                 new Category { Id = 4, Name = "Apple Laptops" },
+                 new Category { Id = 5, Name = "Lenovo Laptops" }
+                 );
 
             // Seed data for Supplier - Adding suppliers for laptops
             modelBuilder.Entity<Supplier>().HasData(
@@ -59,6 +59,32 @@ namespace DAL
                 new Supplier { Id = 4, Name = "Lenovo Group Limited", Address = "6/F, Lenovo Building, 29 Science Park Road, Hong Kong", Contact = "+852 2833 2111" },
                 new Supplier { Id = 5, Name = "Ingram Micro", Address = "3351 Michelson Drive, Suite 100, Irvine, CA 92612, USA", Contact = "+1 800-456-8000" }
             );
+            modelBuilder.Entity<Product>().HasData(
+                 new Product { ProductId = 1, Name = "Dell XPS 13", Price = 1200.00m, CategoryId = 2, SupplierId = 1 },
+                 new Product { ProductId = 2, Name = "HP Spectre x360", Price = 1300.00m, CategoryId = 3, SupplierId = 2 },
+                 new Product { ProductId = 3, Name = "MacBook Pro 14", Price = 2000.00m, CategoryId = 4, SupplierId = 3 },
+                 new Product { ProductId = 4, Name = "Lenovo ThinkPad X1 Carbon", Price = 1500.00m, CategoryId = 5, SupplierId = 4 },
+                 new Product { ProductId = 5, Name = "Dell Inspiron 15", Price = 800.00m, CategoryId = 2, SupplierId = 1 }
+                 );
+
+            modelBuilder.Entity<Stock>().HasData(
+     new Stock { ProductId = 1, Type = "Supply", Quantity = 50, LastUpdate = new DateTime(2024, 03, 09, 12, 0, 0, DateTimeKind.Utc) },
+     new Stock { ProductId = 1, Type = "Sale", Quantity = 20, LastUpdate = new DateTime(2024, 03, 09, 12, 5, 0, DateTimeKind.Utc) }, // فرق 5 دقائق
+
+     new Stock { ProductId = 2, Type = "Supply", Quantity = 60, LastUpdate = new DateTime(2024, 03, 09, 12, 10, 0, DateTimeKind.Utc) },
+     new Stock { ProductId = 2, Type = "Sale", Quantity = 30, LastUpdate = new DateTime(2024, 03, 09, 12, 15, 0, DateTimeKind.Utc) }, // فرق 5 دقائق
+
+     new Stock { ProductId = 3, Type = "Supply", Quantity = 40, LastUpdate = new DateTime(2024, 03, 09, 12, 20, 0, DateTimeKind.Utc) },
+     new Stock { ProductId = 3, Type = "Sale", Quantity = 10, LastUpdate = new DateTime(2024, 03, 09, 12, 25, 0, DateTimeKind.Utc) },
+
+     new Stock { ProductId = 4, Type = "Supply", Quantity = 35, LastUpdate = new DateTime(2024, 03, 09, 12, 30, 0, DateTimeKind.Utc) },
+     new Stock { ProductId = 4, Type = "Sale", Quantity = 15, LastUpdate = new DateTime(2024, 03, 09, 12, 35, 0, DateTimeKind.Utc) },
+
+     new Stock { ProductId = 5, Type = "Supply", Quantity = 80, LastUpdate = new DateTime(2024, 03, 09, 12, 40, 0, DateTimeKind.Utc) },
+     new Stock { ProductId = 5, Type = "Sale", Quantity = 50, LastUpdate = new DateTime(2024, 03, 09, 12, 45, 0, DateTimeKind.Utc) }
+ );
+
+
 
 
             modelBuilder.Entity<SalesDetails>()

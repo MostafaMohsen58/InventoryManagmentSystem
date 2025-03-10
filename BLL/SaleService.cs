@@ -6,26 +6,56 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BLL
 {
-    class SaleService
+    public class SaleService
     {
         private readonly InventoryDbContext context;
 
-        public SaleService(InventoryDbContext context)
+        public SaleService()
         {
-            this.context = context;
+            this.context = new InventoryDbContext();
         }
-        public bool AddSale(DateTime date, string customerName, decimal totalPrice )
+        public Sale GetLastSaleWithNoName()
         {
-            var sale = new Sale
-            {
-                Date = date,
-                Customer_Name = customerName,
-                Total_Price = totalPrice
-            };
+            return context.Sales.OrderBy(c=>c.Id).LastOrDefault(s=>s.Customer_Name == "noname")!;
+        }
+        public bool AddSale(string name)
+        {
 
-            context.Add(sale);
+            var lastsale = GetLastSaleWithNoName();
+           // var mysale = GetSaleById(lastsale.Id);
+            //when add product create sale without name to use saleId , as soon as finish , add name . 
+            if (string.IsNullOrEmpty(name))
+            {
+                var sale = new Sale
+                {
+                    Date = DateTime.Now,
+                    Customer_Name = "noname",
+                    Total_Price = 0,
+                };
+
+                context.Add(sale);
+            }else
+            {
+                if (lastsale != null)
+                {
+                    lastsale!.Customer_Name = name;
+                    lastsale.Total_Price = GetTotalPrice();
+                    context.Update(lastsale);
+                }
+            }
             var rowsAffected = context.SaveChanges();
             return rowsAffected > 0;
+        }
+
+        public decimal GetTotalPrice()
+        {
+            var sale = context.Sales.Include(s => s.SalesDetails).OrderBy(x=>x.Id).LastOrDefault();
+            decimal totalprice = 0;
+            foreach (var item in sale!.SalesDetails)
+            {
+                totalprice += item.Price;
+            }
+            return totalprice;
         }
 
         public bool UpdateSale(int id, DateTime date, string customerName, decimal totalPrice)
@@ -58,10 +88,12 @@ namespace BLL
             return rowsAffected > 0;
         }
 
-        public List<Sale> GetAllSales()
+        public List<Sale> GetSalesWithoutNoName()
         {
-            return context.Sales.ToList();
+            return context.Sales.Where(n => n.Customer_Name != "noname").ToList();
         }
+
+
 
         public Sale? GetSaleById(int id)
         {

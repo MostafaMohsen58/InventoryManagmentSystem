@@ -27,5 +27,12 @@ namespace DAL.Models
 
         public virtual List<Stock> Stocks { get; set; } = new List<Stock>();
         public virtual List<SalesDetails> SalesDetails { get; set; } = new List<SalesDetails>();
+   
+            public override string ToString()
+            {
+                return $"{Name}";
+            }
+       
+
     }
 }

@@ -14,7 +14,7 @@ namespace DAL.Models
         [MaxLength(30)]
         public string Customer_Name { get; set; } = string.Empty;
         public decimal Total_Price { get; set; }
+        public virtual List<SalesDetails> SalesDetails { get; set; } = new List<SalesDetails>();        
 
-        public virtual List<SalesDetails> SalesDetails { get; set; } = new List<SalesDetails>();
     }
 }

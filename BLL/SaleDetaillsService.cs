@@ -6,33 +6,33 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BLL
 {
-    class SaleDetailsService
+    public class SaleDetailsService
     {
         private readonly InventoryDbContext _context;
-
-        public SaleDetailsService(InventoryDbContext context)
+        public SaleDetailsService()
         {
-            this._context = context;
+            this._context =new InventoryDbContext();
         }
-
-        public bool AddSalesDetails(int saleId, int productId, int quantity, decimal price)
+        public bool AddSalesDetails(int saleId, int productId, int quantity)
         {
             var sale = _context.Sales.FirstOrDefault(s => s.Id == saleId);
-            var oldStock = _context.Stocks.LastOrDefault(l => l.ProductId == productId);
+            var Product = _context.Products.Find(productId);
+            var unitprice = Product!.Price;
+            var oldStock = _context.Stocks.OrderBy(t=>t.LastUpdate).LastOrDefault(l => l.ProductId == productId);
             if (sale == null || oldStock == null || oldStock.Quantity < quantity) 
                 return false;
             var newsale = new SalesDetails()
             {
                 SaleId = saleId,
                 ProductId = productId,
-                unitPrice = price,
-                Price = price * quantity,
+                unitPrice = unitprice,
+                Price = unitprice * quantity,
                 Quantity = quantity
             };
             _context.SalesDetails.Add(newsale);
 
             //update sale total price
-            sale!.Total_Price += price * quantity;
+            sale.Total_Price += unitprice * quantity;
             _context.Sales.Update(sale);
 
             var newStock = new Stock
@@ -54,6 +54,11 @@ namespace BLL
                 .Include(sd => sd.Product)  // Include related Product
                 .Include(sd => sd.Sale)     // Include related Sale
                 .ToList();
+        }
+
+        public List<SalesDetails> GetSaleDetailsById(int id)
+        {
+            return _context.SalesDetails.Where(i=>i.SaleId == id).ToList();
         }
     }
 }
