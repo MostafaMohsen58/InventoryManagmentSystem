@@ -41,7 +41,7 @@
             DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             imageList1 = new ImageList(components);
-            materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
+            ReceiveSale = new MaterialSkin.Controls.MaterialTabControl();
             tabPage1 = new TabPage();
             dataGridView1 = new DataGridView();
             materialFloatingActionButton3 = new MaterialSkin.Controls.MaterialFloatingActionButton();
@@ -74,8 +74,12 @@
             tabPage7 = new TabPage();
             tabPage8 = new TabPage();
             tabPage4 = new TabPage();
+            Receive_sale = new TabPage();
+            btn_Receive_sale = new MaterialSkin.Controls.MaterialButton();
+            myshoereport = new Microsoft.Web.WebView2.WinForms.WebView2();
             sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
-            materialTabControl1.SuspendLayout();
+            CB_SALES = new MaterialSkin.Controls.MaterialComboBox();
+            ReceiveSale.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             materialCard3.SuspendLayout();
@@ -85,6 +89,8 @@
             ((System.ComponentModel.ISupportInitialize)dgv_SaleDetails).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgv_Sale).BeginInit();
             ((System.ComponentModel.ISupportInitialize)n_QTY).BeginInit();
+            Receive_sale.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)myshoereport).BeginInit();
             SuspendLayout();
             // 
             // imageList1
@@ -102,26 +108,27 @@
             imageList1.Images.SetKeyName(7, "icons8-users-24.png");
             imageList1.Images.SetKeyName(8, "icons8-stock-32.png");
             // 
-            // materialTabControl1
+            // ReceiveSale
             // 
-            materialTabControl1.Controls.Add(tabPage1);
-            materialTabControl1.Controls.Add(tabPage2);
-            materialTabControl1.Controls.Add(tabPage3);
-            materialTabControl1.Controls.Add(tabPage5);
-            materialTabControl1.Controls.Add(tabPage6);
-            materialTabControl1.Controls.Add(tabPage7);
-            materialTabControl1.Controls.Add(tabPage8);
-            materialTabControl1.Controls.Add(tabPage4);
-            materialTabControl1.Depth = 0;
-            materialTabControl1.Dock = DockStyle.Fill;
-            materialTabControl1.ImageList = imageList1;
-            materialTabControl1.Location = new Point(3, 58);
-            materialTabControl1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialTabControl1.Multiline = true;
-            materialTabControl1.Name = "materialTabControl1";
-            materialTabControl1.SelectedIndex = 0;
-            materialTabControl1.Size = new Size(1025, 636);
-            materialTabControl1.TabIndex = 0;
+            ReceiveSale.Controls.Add(tabPage1);
+            ReceiveSale.Controls.Add(tabPage2);
+            ReceiveSale.Controls.Add(tabPage3);
+            ReceiveSale.Controls.Add(tabPage5);
+            ReceiveSale.Controls.Add(tabPage6);
+            ReceiveSale.Controls.Add(tabPage7);
+            ReceiveSale.Controls.Add(tabPage8);
+            ReceiveSale.Controls.Add(tabPage4);
+            ReceiveSale.Controls.Add(Receive_sale);
+            ReceiveSale.Depth = 0;
+            ReceiveSale.Dock = DockStyle.Fill;
+            ReceiveSale.ImageList = imageList1;
+            ReceiveSale.Location = new Point(3, 58);
+            ReceiveSale.MouseState = MaterialSkin.MouseState.HOVER;
+            ReceiveSale.Multiline = true;
+            ReceiveSale.Name = "ReceiveSale";
+            ReceiveSale.SelectedIndex = 0;
+            ReceiveSale.Size = new Size(1025, 636);
+            ReceiveSale.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -149,7 +156,6 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(568, 285);
             dataGridView1.TabIndex = 6;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // materialFloatingActionButton3
             // 
@@ -341,7 +347,6 @@
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Sales";
             tabPage3.UseVisualStyleBackColor = true;
-            tabPage3.Click += tabPage3_Click;
             // 
             // BTN_OK
             // 
@@ -509,7 +514,6 @@
             CB_Product.Size = new Size(151, 49);
             CB_Product.StartIndex = 0;
             CB_Product.TabIndex = 8;
-            CB_Product.SelectedIndexChanged += CB_Product_SelectedIndexChanged;
             // 
             // Lbl_Product
             // 
@@ -604,26 +608,93 @@
             tabPage4.Text = "Settings | Logout";
             tabPage4.UseVisualStyleBackColor = true;
             // 
+            // Receive_sale
+            // 
+            Receive_sale.Controls.Add(CB_SALES);
+            Receive_sale.Controls.Add(btn_Receive_sale);
+            Receive_sale.Controls.Add(myshoereport);
+            Receive_sale.Location = new Point(4, 31);
+            Receive_sale.Name = "Receive_sale";
+            Receive_sale.Padding = new Padding(3);
+            Receive_sale.Size = new Size(1017, 601);
+            Receive_sale.TabIndex = 8;
+            Receive_sale.Text = "ReceiveSale";
+            Receive_sale.UseVisualStyleBackColor = true;
+            // 
+            // btn_Receive_sale
+            // 
+            btn_Receive_sale.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btn_Receive_sale.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btn_Receive_sale.Depth = 0;
+            btn_Receive_sale.HighEmphasis = true;
+            btn_Receive_sale.Icon = null;
+            btn_Receive_sale.Location = new Point(799, 9);
+            btn_Receive_sale.Margin = new Padding(4, 6, 4, 6);
+            btn_Receive_sale.MouseState = MaterialSkin.MouseState.HOVER;
+            btn_Receive_sale.Name = "btn_Receive_sale";
+            btn_Receive_sale.NoAccentTextColor = Color.Empty;
+            btn_Receive_sale.Size = new Size(79, 36);
+            btn_Receive_sale.TabIndex = 24;
+            btn_Receive_sale.Text = "Receive";
+            btn_Receive_sale.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            btn_Receive_sale.UseAccentColor = false;
+            btn_Receive_sale.UseVisualStyleBackColor = true;
+            btn_Receive_sale.Click += btnShowReport_Click;
+            // 
+            // myshoereport
+            // 
+            myshoereport.AllowExternalDrop = true;
+            myshoereport.CreationProperties = null;
+            myshoereport.DefaultBackgroundColor = Color.White;
+            myshoereport.Location = new Point(151, 53);
+            myshoereport.Name = "myshoereport";
+            myshoereport.Size = new Size(643, 539);
+            myshoereport.TabIndex = 23;
+            myshoereport.Visible = false;
+            myshoereport.ZoomFactor = 1D;
+            // 
             // sqlCommand1
             // 
             sqlCommand1.CommandTimeout = 30;
             sqlCommand1.EnableOptimizedParameterBinding = false;
+            // 
+            // CB_SALES
+            // 
+            CB_SALES.AutoResize = false;
+            CB_SALES.BackColor = Color.FromArgb(255, 255, 255);
+            CB_SALES.Depth = 0;
+            CB_SALES.DrawMode = DrawMode.OwnerDrawVariable;
+            CB_SALES.DropDownHeight = 174;
+            CB_SALES.DropDownStyle = ComboBoxStyle.DropDownList;
+            CB_SALES.DropDownWidth = 121;
+            CB_SALES.Font = new Font("Roboto Medium", 14F, FontStyle.Bold, GraphicsUnit.Pixel);
+            CB_SALES.ForeColor = Color.FromArgb(222, 0, 0, 0);
+            CB_SALES.FormattingEnabled = true;
+            CB_SALES.IntegralHeight = false;
+            CB_SALES.ItemHeight = 43;
+            CB_SALES.Location = new Point(800, 67);
+            CB_SALES.MaxDropDownItems = 4;
+            CB_SALES.MouseState = MaterialSkin.MouseState.OUT;
+            CB_SALES.Name = "CB_SALES";
+            CB_SALES.Size = new Size(151, 49);
+            CB_SALES.StartIndex = 0;
+            CB_SALES.TabIndex = 26;
             // 
             // AdminDashBoard
             // 
             AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1031, 697);
-            Controls.Add(materialTabControl1);
+            Controls.Add(ReceiveSale);
             DrawerShowIconsWhenHidden = true;
-            DrawerTabControl = materialTabControl1;
+            DrawerTabControl = ReceiveSale;
             Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Name = "AdminDashBoard";
             Padding = new Padding(3, 58, 3, 3);
             Sizable = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Inventory Management System";
-            materialTabControl1.ResumeLayout(false);
+            ReceiveSale.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             materialCard3.ResumeLayout(false);
@@ -637,12 +708,15 @@
             ((System.ComponentModel.ISupportInitialize)dgv_SaleDetails).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgv_Sale).EndInit();
             ((System.ComponentModel.ISupportInitialize)n_QTY).EndInit();
+            Receive_sale.ResumeLayout(false);
+            Receive_sale.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)myshoereport).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
         private ImageList imageList1;
-        private MaterialSkin.Controls.MaterialTabControl materialTabControl1;
+        private MaterialSkin.Controls.MaterialTabControl ReceiveSale;
         private TabPage tabPage1;
         private TabPage tabPage2;
         private TabPage tabPage3;
@@ -677,5 +751,11 @@
         private DataGridView dgv_Sale;
         private MaterialSkin.Controls.MaterialButton AddProduct;
         private MaterialSkin.Controls.MaterialButton BTN_OK;
+        private TabPage Receive_sale;
+        private MaterialSkin.Controls.MaterialButton btnReceive;
+        private MaterialSkin.Controls.MaterialButton materialButton1;
+        private MaterialSkin.Controls.MaterialButton btn_Receive_sale;
+        private Microsoft.Web.WebView2.WinForms.WebView2 myshoereport;
+        private MaterialSkin.Controls.MaterialComboBox CB_SALES;
     }
 }

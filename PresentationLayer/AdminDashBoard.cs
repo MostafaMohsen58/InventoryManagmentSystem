@@ -14,12 +14,14 @@ namespace PresentationLayer
         private readonly SaleService _saleService;
         private readonly SaleDetailsService _saleDetailsService;
         private readonly ProductService _productService;
+        private readonly ReportService _reportService;
         public AdminDashBoard()
         {
             InitializeComponent();
             _productService = new ProductService();
             _saleDetailsService = new SaleDetailsService();
             _saleService = new SaleService();
+            _reportService = new ReportService();
             // Apply Material Theme
             materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -34,13 +36,11 @@ namespace PresentationLayer
         {
             loadProductInCB();
             LoadSaleData();
+            LoadSalesIntoComboBox();
         }
 
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+      
         private void loadProductInCB()
         {
             var allProduct = _productService.GetAll().ToList();
@@ -57,10 +57,7 @@ namespace PresentationLayer
             CB_Product.SelectedIndex = -1; // Optionally clear the selected item
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
+      
         //add Sale With noname $$ product (saleDetails)
         // button add Product 
         private void AddSale_Click(object sender, EventArgs e)
@@ -91,7 +88,7 @@ namespace PresentationLayer
         {
             CB_Product.SelectedIndex = -1;
             n_QTY.Value = 0;
-            
+
         }
         private void addSaleWithoutCustName(Sale sale)
         {
@@ -115,14 +112,11 @@ namespace PresentationLayer
                 Txt_CName.Text = string.Empty;
             }
             //get new data
-            LoadSaleData(); 
+            LoadSaleData();
             dgv_SaleDetails.DataSource = null;
         }
 
-        private void tabPage3_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -155,9 +149,63 @@ namespace PresentationLayer
 
         }
 
-        private void CB_Product_SelectedIndexChanged(object sender, EventArgs e)
+        private async Task LoadHtmlReport(int saleid)
         {
+            await myshoereport.EnsureCoreWebView2Async();
 
+            string reportPath = _reportService.GenerateHtmlReport(saleid);
+            if (string.IsNullOrEmpty(reportPath))
+            {
+                MessageBox.Show("No sales data available.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // 🟢 إجبار WebView2 على إعادة تحميل الصفحة بعد كل اختيار جديد
+            myshoereport.Source = new Uri("about:blank");
+            await Task.Delay(100); // إعطاء وقت قصير لإعادة التهيئة
+            myshoereport.Source = new Uri(reportPath);
+            //await myshoereport.EnsureCoreWebView2Async();
+
+            //string reportPath = _reportService.GenerateHtmlReport(saleid);
+            //if (reportPath == null)
+            //{
+            //    MessageBox.Show("No sales data available.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    return;
+            //}
+
+            //myshoereport.Source = new Uri(reportPath);
+        }
+        private async void btnShowReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                myshoereport.Visible = true;
+                await LoadHtmlReport((int)CB_SALES.SelectedValue);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading report: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadSalesIntoComboBox()
+        {
+           
+            var sales = _saleService.GetAll(); 
+
+            if (sales == null || sales.Count == 0)
+            {
+                MessageBox.Show("No sales records found.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            CB_SALES.DataSource = sales;
+            CB_SALES.DisplayMember = "Customer_Name"; 
+            CB_SALES.ValueMember = "Id"; 
         }
     }
+
+
 }
+

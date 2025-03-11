@@ -14,6 +14,14 @@ namespace BLL
         {
             this.context = new InventoryDbContext();
         }
+        public List<Sale> GetAll()
+        {
+            return context.Sales.ToList();
+        }
+        public Sale GetSale(int id)
+        {
+            return context.Sales.OrderBy(x => x.Id).LastOrDefault(x=>x.Id==id)!;
+        }
         public Sale GetLastSaleWithNoName()
         {
             return context.Sales.OrderBy(c=>c.Id).LastOrDefault(s=>s.Customer_Name == "noname")!;
