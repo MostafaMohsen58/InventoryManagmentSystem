@@ -4,6 +4,7 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryManagmentSystem.DAL.Migrations
 {
     [DbContext(typeof(InventoryDbContext))]
-    partial class InventoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250309195521_DeleteidfromSaleDetails")]
+    partial class DeleteidfromSaleDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +49,7 @@ namespace InventoryManagmentSystem.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Asus Laptops"
+                            Name = "Laptops"
                         },
                         new
                         {
@@ -106,9 +109,7 @@ namespace InventoryManagmentSystem.DAL.Migrations
                             ProductId = 1,
                             CategoryId = 2,
                             Name = "Dell XPS 13",
-                            Price = 12000m,
-
-
+                            Price = 1200.00m,
                             SupplierId = 1
                         },
                         new
@@ -116,8 +117,7 @@ namespace InventoryManagmentSystem.DAL.Migrations
                             ProductId = 2,
                             CategoryId = 3,
                             Name = "HP Spectre x360",
-
-                            Price = 11000m,
+                            Price = 1300.00m,
                             SupplierId = 2
                         },
                         new
@@ -125,30 +125,24 @@ namespace InventoryManagmentSystem.DAL.Migrations
                             ProductId = 3,
                             CategoryId = 4,
                             Name = "MacBook Pro 14",
-
-                            Price = 20000m,
-
+                            Price = 2000.00m,
                             SupplierId = 3
                         },
                         new
                         {
                             ProductId = 4,
                             CategoryId = 5,
-
-                            Name = "Lenovo ThinkPad X1",
-                            Price = 13000m,
-
+                            Name = "Lenovo ThinkPad X1 Carbon",
+                            Price = 1500.00m,
                             SupplierId = 4
                         },
                         new
                         {
                             ProductId = 5,
-
-                            CategoryId = 1,
-                            Name = "Asus ROG Zephyrus G14",
-                            Price = 15000m,
-                            SupplierId = 5
-
+                            CategoryId = 2,
+                            Name = "Dell Inspiron 15",
+                            Price = 800.00m,
+                            SupplierId = 1
                         });
                 });
 
@@ -225,36 +219,73 @@ namespace InventoryManagmentSystem.DAL.Migrations
                     b.HasData(
                         new
                         {
-
-                            LastUpdate = new DateTime(2024, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 0, 0, 0, DateTimeKind.Utc),
                             ProductId = 1,
                             Quantity = 50,
                             Type = "Supply"
                         },
                         new
                         {
-
-                            LastUpdate = new DateTime(2025, 3, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 5, 0, 0, DateTimeKind.Utc),
+                            ProductId = 1,
+                            Quantity = 20,
+                            Type = "Sale"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 10, 0, 0, DateTimeKind.Utc),
+                            ProductId = 2,
+                            Quantity = 60,
+                            Type = "Supply"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 15, 0, 0, DateTimeKind.Utc),
                             ProductId = 2,
                             Quantity = 30,
-                            Type = "Supply"
+                            Type = "Sale"
                         },
                         new
                         {
-
-                            LastUpdate = new DateTime(2024, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 20, 0, 0, DateTimeKind.Utc),
                             ProductId = 3,
-                            Quantity = 20,
+                            Quantity = 40,
                             Type = "Supply"
                         },
                         new
                         {
-
-                            LastUpdate = new DateTime(2024, 6, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 25, 0, 0, DateTimeKind.Utc),
+                            ProductId = 3,
+                            Quantity = 10,
+                            Type = "Sale"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 30, 0, 0, DateTimeKind.Utc),
                             ProductId = 4,
-                            Quantity = 20,
+                            Quantity = 35,
                             Type = "Supply"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 35, 0, 0, DateTimeKind.Utc),
+                            ProductId = 4,
+                            Quantity = 15,
+                            Type = "Sale"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 40, 0, 0, DateTimeKind.Utc),
+                            ProductId = 5,
+                            Quantity = 80,
+                            Type = "Supply"
+                        },
+                        new
+                        {
+                            LastUpdate = new DateTime(2024, 3, 9, 12, 45, 0, 0, DateTimeKind.Utc),
+                            ProductId = 5,
+                            Quantity = 50,
+                            Type = "Sale"
                         });
                 });
 

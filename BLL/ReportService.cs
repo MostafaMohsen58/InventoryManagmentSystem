@@ -45,8 +45,6 @@ public class ReportService
                 $"<tr><td>{item.Product.Name}</td><td>{item.Quantity}</td><td>{item.unitPrice}</td><td>{item.Price}</td></tr>"));
 
             string totalPrice = sale.Total_Price.ToString();
-
-
             string finalHtml = htmlTemplate
                 .Replace("{SaleDate}", saleDate)
                 .Replace("{CustomerName}", customerName)

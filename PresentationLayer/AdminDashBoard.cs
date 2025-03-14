@@ -1,4 +1,4 @@
-﻿using BLL;
+using BLL;
 using DAL.Models;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -7,11 +7,13 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 
+
 namespace PresentationLayer
 {
     public partial class AdminDashBoard : MaterialForm
     {
         private readonly MaterialSkinManager materialSkinManager;
+
         SupplierService supplierService;
 
         int ProductId;
@@ -25,6 +27,7 @@ namespace PresentationLayer
         public AdminDashBoard()
         {
             InitializeComponent();
+
             // Apply Material Theme
             materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
@@ -33,6 +36,7 @@ namespace PresentationLayer
                 Primary.BlueGrey800, Primary.BlueGrey800, Primary.BlueGrey500,
                 Accent.LightBlue700, TextShade.WHITE
             );
+
             supplierService = new SupplierService();
             LoadSuppliers();
         }
@@ -330,14 +334,17 @@ namespace PresentationLayer
         {
             if (CB_Product.SelectedIndex == -1 || (n_QTY.Value <= 0) || Txt_CName.Text.Length <= 2)
             { 
+
                 MessageBox.Show("Failed to add Product", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
+
                 var sale = SaleService.GetLastSaleWithNoName();
                 addSaleWithoutCustName(sale);
                 sale = SaleService.GetLastSaleWithNoName();
                 var rlt = Sd.AddSalesDetails(sale.Id, (int)CB_Product.SelectedValue!, (int)n_QTY.Value);
+
 
                 if (!rlt)
                 {
@@ -347,8 +354,10 @@ namespace PresentationLayer
                 {
                     Clearfilds();
                     MessageBox.Show("Product added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     Txt_CName.ReadOnly = true;
                     Txt_CName.ForeColor = Color.Gray;
+
                 }
             }
         }
@@ -364,7 +373,9 @@ namespace PresentationLayer
             //add sale  With noname
             if (sale == null)
             {
+
                 var result = SaleService.AddSale(null!);
+
                 if (!result)
                 {
                     MessageBox.Show("Failed to add sale", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -372,6 +383,7 @@ namespace PresentationLayer
                 }
             }
         }
+
 
         private void BTN_OK_Click(object sender, EventArgs e)
         {
@@ -403,6 +415,7 @@ namespace PresentationLayer
         {
             dgv_Sale.DataSource = SaleService.GetSalesWithoutNoName();
             var sales = SaleService.GetSalesWithoutNoName();
+
             if (sales.Count == 0)
             {
                 MessageBox.Show("No sales data available.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -415,15 +428,18 @@ namespace PresentationLayer
             SaleId = (int)(dgv_Sale.SelectedRows[0].Cells[0].Value)!;
             getSaleDetals();
         }
+
         private void getSaleDetals()
         {
             var SaleDetails = Sd.GetSaleDetailsById(SaleId);
+
             dgv_SaleDetails.DataSource = SaleDetails;
             dgv_SaleDetails.Columns["ProductId"]!.Visible = false;
             dgv_SaleDetails.Columns["Sale"]!.Visible = false;
             dgv_SaleDetails.Columns["Sale"]!.Visible = false;
 
         }
+
         private void LoadSalesIntoComboBox()
         {
 
@@ -452,11 +468,14 @@ namespace PresentationLayer
                 MessageBox.Show($"Error loading report: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private async Task LoadHtmlReport(int saleid)
         {
             await myshoereport.EnsureCoreWebView2Async();
 
+
             string reportPath = reportService.GenerateHtmlReport(saleid);
+
             if (string.IsNullOrEmpty(reportPath))
             {
                 MessageBox.Show("No sales data available.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -467,6 +486,7 @@ namespace PresentationLayer
             myshoereport.Source = new Uri("about:blank");
             await Task.Delay(100); // إعطاء وقت قصير لإعادة التهيئة
             myshoereport.Source = new Uri(reportPath);
+
         }
         private void loadProductInCB()
         {
@@ -942,3 +962,4 @@ namespace PresentationLayer
     }
     #endregion
 }
+

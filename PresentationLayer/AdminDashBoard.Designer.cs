@@ -1,4 +1,4 @@
-﻿namespace PresentationLayer
+namespace PresentationLayer
 {
     partial class AdminDashBoard
     {
@@ -29,17 +29,21 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashBoard));
+
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+
             DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
@@ -106,10 +110,12 @@
             materialFloatingActionButton3 = new MaterialSkin.Controls.MaterialFloatingActionButton();
             materialCard3 = new MaterialSkin.Controls.MaterialCard();
             lbl_dashLowStock = new Label();
+
             materialLabel6 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
             materialFloatingActionButton2 = new MaterialSkin.Controls.MaterialFloatingActionButton();
             materialCard2 = new MaterialSkin.Controls.MaterialCard();
+
             label1 = new Label();
             lbl_dashTotalSales = new Label();
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
@@ -144,6 +150,7 @@
             materialLabel8 = new MaterialSkin.Controls.MaterialLabel();
             dgv_Products = new DataGridView();
             Sales = new TabPage();
+
             BTN_OK = new MaterialSkin.Controls.MaterialButton();
             AddProduct = new MaterialSkin.Controls.MaterialButton();
             dgv_SaleDetails = new DataGridView();
@@ -154,6 +161,7 @@
             Lbl_Product = new MaterialSkin.Controls.MaterialLabel();
             Txt_CName = new MaterialSkin.Controls.MaterialTextBox();
             Cust_Name = new MaterialSkin.Controls.MaterialLabel();
+
             Stock = new TabPage();
             groupBox4 = new GroupBox();
             cmb_stockProd = new MaterialSkin.Controls.MaterialComboBox();
@@ -647,12 +655,14 @@
             Reports.ToolTipText = "Reports";
             Reports.UseVisualStyleBackColor = true;
             // 
+
             // imageList1
             // 
             imageList1.ColorDepth = ColorDepth.Depth32Bit;
             imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
             imageList1.TransparentColor = Color.Transparent;
             imageList1.Images.SetKeyName(0, "icons8-dashboard-layout-24.png");
+
             imageList1.Images.SetKeyName(1, "icons8-us-dollar-26.png");
             imageList1.Images.SetKeyName(2, "icons8-product-24.png");
             imageList1.Images.SetKeyName(3, "icons8-supplier-24.png");
@@ -945,12 +955,15 @@
             Status.ReadOnly = true;
             Status.Resizable = DataGridViewTriState.False;
             Status.ToolTipText = "Status";
+
             // 
             // materialFloatingActionButton3
             // 
             materialFloatingActionButton3.Depth = 0;
+
             materialFloatingActionButton3.Icon = InventoryManagmentSystem.PL.Properties.Resources.down;
             materialFloatingActionButton3.Location = new Point(567, 220);
+
             materialFloatingActionButton3.MouseState = MaterialSkin.MouseState.HOVER;
             materialFloatingActionButton3.Name = "materialFloatingActionButton3";
             materialFloatingActionButton3.Size = new Size(59, 71);
@@ -961,12 +974,16 @@
             // materialCard3
             // 
             materialCard3.BackColor = Color.FromArgb(255, 255, 255);
+
             materialCard3.Controls.Add(lbl_dashLowStock);
+
             materialCard3.Controls.Add(materialLabel6);
             materialCard3.Controls.Add(materialLabel3);
             materialCard3.Depth = 0;
             materialCard3.ForeColor = Color.FromArgb(222, 0, 0, 0);
+
             materialCard3.Location = new Point(347, 201);
+
             materialCard3.Margin = new Padding(14, 13, 14, 13);
             materialCard3.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard3.Name = "materialCard3";
@@ -974,6 +991,7 @@
             materialCard3.Size = new Size(250, 95);
             materialCard3.TabIndex = 4;
             // 
+
             // lbl_dashLowStock
             // 
             lbl_dashLowStock.AutoSize = true;
@@ -983,6 +1001,7 @@
             lbl_dashLowStock.Size = new Size(26, 29);
             lbl_dashLowStock.TabIndex = 4;
             lbl_dashLowStock.Text = "2";
+
             // 
             // materialLabel6
             // 
@@ -1003,15 +1022,19 @@
             materialLabel3.Location = new Point(17, 13);
             materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabel3.Name = "materialLabel3";
+
             materialLabel3.Size = new Size(188, 19);
             materialLabel3.TabIndex = 2;
             materialLabel3.Text = "Low Stock Products Count";
+
             // 
             // materialFloatingActionButton2
             // 
             materialFloatingActionButton2.Depth = 0;
             materialFloatingActionButton2.Icon = (Image)resources.GetObject("materialFloatingActionButton2.Icon");
+
             materialFloatingActionButton2.Location = new Point(879, 75);
+
             materialFloatingActionButton2.MouseState = MaterialSkin.MouseState.HOVER;
             materialFloatingActionButton2.Name = "materialFloatingActionButton2";
             materialFloatingActionButton2.Size = new Size(59, 71);
@@ -1022,12 +1045,14 @@
             // materialCard2
             // 
             materialCard2.BackColor = Color.FromArgb(255, 255, 255);
+
             materialCard2.Controls.Add(label1);
             materialCard2.Controls.Add(lbl_dashTotalSales);
             materialCard2.Controls.Add(materialLabel2);
             materialCard2.Depth = 0;
             materialCard2.ForeColor = Color.FromArgb(222, 0, 0, 0);
             materialCard2.Location = new Point(659, 56);
+
             materialCard2.Margin = new Padding(14, 13, 14, 13);
             materialCard2.MouseState = MaterialSkin.MouseState.HOVER;
             materialCard2.Name = "materialCard2";
@@ -1035,6 +1060,7 @@
             materialCard2.Size = new Size(250, 95);
             materialCard2.TabIndex = 2;
             // 
+
             // label1
             // 
             label1.AutoSize = true;
@@ -1054,6 +1080,7 @@
             lbl_dashTotalSales.Size = new Size(97, 29);
             lbl_dashTotalSales.TabIndex = 2;
             lbl_dashTotalSales.Text = "600,000";
+
             // 
             // materialLabel2
             // 
@@ -1063,15 +1090,19 @@
             materialLabel2.Location = new Point(17, 13);
             materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabel2.Name = "materialLabel2";
+
             materialLabel2.Size = new Size(106, 19);
             materialLabel2.TabIndex = 1;
             materialLabel2.Text = "Total Revenue ";
+
             // 
             // materialFloatingActionButton1
             // 
             materialFloatingActionButton1.Depth = 0;
             materialFloatingActionButton1.ForeColor = Color.White;
+
             materialFloatingActionButton1.Icon = InventoryManagmentSystem.PL.Properties.Resources.icons8_products_64;
+
             materialFloatingActionButton1.Location = new Point(255, 75);
             materialFloatingActionButton1.MouseState = MaterialSkin.MouseState.HOVER;
             materialFloatingActionButton1.Name = "materialFloatingActionButton1";
@@ -1083,7 +1114,9 @@
             // materialCard1
             // 
             materialCard1.BackColor = Color.FromArgb(255, 255, 255);
+
             materialCard1.Controls.Add(lbl_CountOfProd);
+
             materialCard1.Controls.Add(materialLabel1);
             materialCard1.Depth = 0;
             materialCard1.ForeColor = Color.FromArgb(222, 0, 0, 0);
@@ -1095,6 +1128,7 @@
             materialCard1.Size = new Size(250, 95);
             materialCard1.TabIndex = 0;
             // 
+
             // lbl_CountOfProd
             // 
             lbl_CountOfProd.AutoSize = true;
@@ -1104,6 +1138,7 @@
             lbl_CountOfProd.Size = new Size(39, 29);
             lbl_CountOfProd.TabIndex = 1;
             lbl_CountOfProd.Text = "60";
+
             // 
             // materialLabel1
             // 
@@ -1117,6 +1152,7 @@
             materialLabel1.TabIndex = 0;
             materialLabel1.Text = "Total Products";
             // 
+
             // Products
             // 
             Products.Controls.Add(groupBox2);
@@ -1641,19 +1677,24 @@
             // BTN_OK
             // 
             BTN_OK.AutoSize = false;
+
             BTN_OK.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             BTN_OK.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             BTN_OK.Depth = 0;
             BTN_OK.HighEmphasis = true;
             BTN_OK.Icon = null;
+
             BTN_OK.Location = new Point(245, 329);
+
             BTN_OK.Margin = new Padding(4, 6, 4, 6);
             BTN_OK.MouseState = MaterialSkin.MouseState.HOVER;
             BTN_OK.Name = "BTN_OK";
             BTN_OK.NoAccentTextColor = Color.Empty;
+
             BTN_OK.Size = new Size(99, 41);
             BTN_OK.TabIndex = 27;
             BTN_OK.Text = "Done";
+
             BTN_OK.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             BTN_OK.UseAccentColor = false;
             BTN_OK.UseVisualStyleBackColor = true;
@@ -1661,23 +1702,31 @@
             // 
             // AddProduct
             // 
+
             AddProduct.AutoSize = false;
+=======
+
             AddProduct.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             AddProduct.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
             AddProduct.Depth = 0;
             AddProduct.HighEmphasis = true;
             AddProduct.Icon = null;
+
             AddProduct.Location = new Point(87, 329);
+
             AddProduct.Margin = new Padding(4, 6, 4, 6);
             AddProduct.MouseState = MaterialSkin.MouseState.HOVER;
             AddProduct.Name = "AddProduct";
             AddProduct.NoAccentTextColor = Color.Empty;
+
             AddProduct.Size = new Size(113, 41);
             AddProduct.TabIndex = 26;
+
             AddProduct.Text = "Add Product";
             AddProduct.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             AddProduct.UseAccentColor = false;
             AddProduct.UseVisualStyleBackColor = true;
+
             AddProduct.Click += AddProduct_Click;
             // 
             // dgv_SaleDetails
@@ -1789,6 +1838,7 @@
             dgv_Sale.RowTemplate.Height = 40;
             dgv_Sale.Size = new Size(530, 322);
             dgv_Sale.TabIndex = 24;
+
             dgv_Sale.RowHeaderMouseDoubleClick += dgv_Sale_RowHeaderMouseDoubleClick;
             // 
             // lblQty
@@ -1797,19 +1847,23 @@
             lblQty.Depth = 0;
             lblQty.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
             lblQty.ForeColor = Color.White;
+
             lblQty.Location = new Point(30, 241);
             lblQty.MouseState = MaterialSkin.MouseState.HOVER;
             lblQty.Name = "lblQty";
             lblQty.Size = new Size(61, 19);
             lblQty.TabIndex = 23;
+
             lblQty.Text = "Quantity";
             // 
             // n_QTY
             // 
+
             n_QTY.Location = new Point(189, 237);
             n_QTY.Name = "n_QTY";
             n_QTY.Size = new Size(202, 24);
             n_QTY.TabIndex = 22;
+
             // 
             // CB_Product
             // 
@@ -1827,6 +1881,7 @@
             CB_Product.FormattingEnabled = true;
             CB_Product.IntegralHeight = false;
             CB_Product.ItemHeight = 43;
+
             CB_Product.Location = new Point(189, 123);
             CB_Product.MaxDropDownItems = 6;
             CB_Product.MouseState = MaterialSkin.MouseState.OUT;
@@ -1834,6 +1889,7 @@
             CB_Product.Size = new Size(202, 49);
             CB_Product.StartIndex = 0;
             CB_Product.TabIndex = 21;
+
             // 
             // Lbl_Product
             // 
@@ -1841,12 +1897,14 @@
             Lbl_Product.Depth = 0;
             Lbl_Product.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
             Lbl_Product.ForeColor = Color.White;
+
             Lbl_Product.Location = new Point(30, 153);
             Lbl_Product.MouseState = MaterialSkin.MouseState.HOVER;
             Lbl_Product.Name = "Lbl_Product";
             Lbl_Product.Size = new Size(102, 19);
             Lbl_Product.TabIndex = 20;
             Lbl_Product.Text = "Product Name";
+
             // 
             // Txt_CName
             // 
@@ -1855,13 +1913,16 @@
             Txt_CName.Depth = 0;
             Txt_CName.Font = new Font("Roboto", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
             Txt_CName.LeadingIcon = null;
+
             Txt_CName.Location = new Point(189, 48);
+
             Txt_CName.MaxLength = 50;
             Txt_CName.MouseState = MaterialSkin.MouseState.OUT;
             Txt_CName.Multiline = false;
             Txt_CName.Name = "Txt_CName";
-            Txt_CName.Size = new Size(202, 36);
+          Txt_CName.Size = new Size(202, 36);
             Txt_CName.TabIndex = 19;
+
             Txt_CName.Text = "";
             Txt_CName.TrailingIcon = null;
             Txt_CName.UseTallSize = false;
@@ -1872,6 +1933,7 @@
             Cust_Name.Depth = 0;
             Cust_Name.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
             Cust_Name.ForeColor = Color.White;
+
             Cust_Name.Location = new Point(30, 65);
             Cust_Name.MouseState = MaterialSkin.MouseState.HOVER;
             Cust_Name.Name = "Cust_Name";
@@ -2551,6 +2613,7 @@
             CB_SALES.Size = new Size(134, 49);
             CB_SALES.StartIndex = 0;
             CB_SALES.TabIndex = 32;
+
             // 
             // btn_Receive_sale
             // 
@@ -2559,24 +2622,31 @@
             btn_Receive_sale.Depth = 0;
             btn_Receive_sale.HighEmphasis = true;
             btn_Receive_sale.Icon = null;
+
             btn_Receive_sale.Location = new Point(785, 31);
+
             btn_Receive_sale.Margin = new Padding(4, 6, 4, 6);
             btn_Receive_sale.MouseState = MaterialSkin.MouseState.HOVER;
             btn_Receive_sale.Name = "btn_Receive_sale";
             btn_Receive_sale.NoAccentTextColor = Color.Empty;
             btn_Receive_sale.Size = new Size(79, 36);
+
             btn_Receive_sale.TabIndex = 31;
+
             btn_Receive_sale.Text = "Receive";
             btn_Receive_sale.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             btn_Receive_sale.UseAccentColor = false;
             btn_Receive_sale.UseVisualStyleBackColor = true;
+
             btn_Receive_sale.Click += btn_Receive_sale_Click;
+
             // 
             // myshoereport
             // 
             myshoereport.AllowExternalDrop = true;
             myshoereport.CreationProperties = null;
             myshoereport.DefaultBackgroundColor = Color.White;
+
             myshoereport.Location = new Point(73, 44);
             myshoereport.Name = "myshoereport";
             myshoereport.Size = new Size(643, 637);
@@ -2610,22 +2680,26 @@
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
+
             // 
             // AdminDashBoard
             // 
             AutoScaleDimensions = new SizeF(9F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
+
             ClientSize = new Size(1023, 783);
             Controls.Add(btn_LogOut);
             Controls.Add(materialTabControl1);
             DrawerShowIconsWhenHidden = true;
             DrawerTabControl = materialTabControl1;
+
             Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Name = "AdminDashBoard";
             Padding = new Padding(3, 58, 3, 3);
             Sizable = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Inventory Management System";
+
             Load += AdminDashBoard_Load;
             ((System.ComponentModel.ISupportInitialize)dgv_supplier).EndInit();
             ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
@@ -2641,12 +2715,14 @@
             materialCard4.ResumeLayout(false);
             materialCard4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_dashStock).EndInit();
+
             materialCard3.ResumeLayout(false);
             materialCard3.PerformLayout();
             materialCard2.ResumeLayout(false);
             materialCard2.PerformLayout();
             materialCard1.ResumeLayout(false);
             materialCard1.PerformLayout();
+
             Products.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
@@ -2810,4 +2886,5 @@
         private DataGridView dgv_Users;
         private ErrorProvider errorProvider1;
     }
+
 }
