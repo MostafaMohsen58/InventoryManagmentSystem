@@ -4,7 +4,6 @@ using MaterialSkin;
 using MaterialSkin.Controls;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 
 namespace PresentationLayer
@@ -21,6 +20,7 @@ namespace PresentationLayer
         SaleDetailsService Sd = new SaleDetailsService();
         ReportService reportService = new ReportService();
         UserService userService = new UserService();
+        CategoryService GS = new CategoryService();
         private int selectedUserId = -1;
         public AdminDashBoard()
         {
@@ -59,8 +59,9 @@ namespace PresentationLayer
             cmb_Role.SelectedIndex = -1;
             cmb_searchRole.SelectedIndex = -1;
             LoadUsers();
+            btn_editCat.Visible = false;
+            btn_deleteCategory.Visible = false;
         }
-
         private void dgv_dashStock_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dgv_dashStock.Columns[e.ColumnIndex].Name == "Status")
@@ -92,7 +93,7 @@ namespace PresentationLayer
         #region Product Tap
         public void LoadProducts()
         {
-            
+
             var Products = PS.GetAll();
             dgv_Products.DataSource = Products;
             dgv_Products.Columns["ProductId"].Visible = false;
@@ -130,11 +131,13 @@ namespace PresentationLayer
             cmb_SupProduct.ValueMember = "Id";
             cmb_SupProduct.DisplayMember = "Name";
             cmb_SupProduct.SelectedIndex = -1;
-
+            cmb_filtersupplier.DataSource = S.GetAll();
+            cmb_filtersupplier.ValueMember = "Id";
+            cmb_filtersupplier.DisplayMember = "Name";
+            cmb_filtersupplier.SelectedIndex = -1;
         }
         public void LoadCategory()
         {
-            CategoryService GS = new CategoryService();
             cmb_CatProducts.DataSource = GS.GetAllCategories();
             cmb_CatProducts.ValueMember = "Id";
             cmb_CatProducts.DisplayMember = "Name";
@@ -144,6 +147,11 @@ namespace PresentationLayer
             cmb_searchProdCat.ValueMember = "Id";
             cmb_searchProdCat.DisplayMember = "Name";
             cmb_searchProdCat.SelectedIndex = -1;
+            if(Role == "Admin" || Role == "Staff")
+            {
+                dgv_Category.DataSource = GS.GetAllCategories();
+                dgv_Category.Columns["Id"].Visible = false;
+            }
         }
         private void txt_PriceProduct_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -154,7 +162,7 @@ namespace PresentationLayer
         }
         private void dgv_Products_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (Role == "Staff")            
+            if (Role == "Staff")
                 return;
 
             var row = dgv_Products.SelectedRows[0];
@@ -283,10 +291,99 @@ namespace PresentationLayer
             }
         }
         #endregion
+
+        #region Category Tap
+        int CategoryId;
+        private void dgv_Category_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (Role == "Staff")
+                return;
+
+            txt_CategoryName.Text = dgv_Category.SelectedRows[0].Cells["Name"].Value.ToString();
+            btn_deleteCategory.Visible = true;
+            btn_editCat.Visible = true;
+            btn_AddCategory.Visible = false;
+            btn_ResetCategory.Location = new Point(426, 229);
+        }
+        private void btn_AddCategory_Click(object sender, EventArgs e)
+        {
+            string CatName = txt_CategoryName.Text;
+            if (string.IsNullOrWhiteSpace(CatName))
+            {
+                MessageBox.Show("Please enter a category name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var result = GS.AddCategory(CatName);
+            if (result)
+            {
+                MessageBox.Show("Category added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadCategory();
+                ResetCat();
+            }
+            else
+            {
+                MessageBox.Show("Failed to add category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btn_editCat_Click(object sender, EventArgs e)
+        {
+            CategoryId = Convert.ToInt32(dgv_Category.SelectedRows[0].Cells["Id"].Value);
+            string CatName = txt_CategoryName.Text;
+            if (string.IsNullOrWhiteSpace(CatName))
+            {
+                MessageBox.Show("Please enter a category name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            var result = GS.UpdateCategory(CategoryId, CatName);
+            if (result)
+            {
+                MessageBox.Show("Category updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadCategory();
+                ResetCat();
+            }
+            else
+            {
+                MessageBox.Show("Failed to update category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void ResetCat()
+        {
+            txt_CategoryName.Clear();
+            btn_editCat.Visible = false;
+            btn_deleteCategory.Visible = false;
+            btn_AddCategory.Visible = true;
+            btn_ResetCategory.Location = new Point(488, 229);
+        }
+        private void btn_ResetCategory_Click(object sender, EventArgs e)
+        {
+            ResetCat();
+        }
+
+        private void btn_deleteCategory_Click(object sender, EventArgs e)
+        {
+            CategoryId = Convert.ToInt32(dgv_Category.SelectedRows[0].Cells["Id"].Value);
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                var IsDeleted = GS.DeleteCategory(CategoryId);
+                if (IsDeleted)
+                {
+                    MessageBox.Show("Category deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadCategory();
+                    txt_CategoryName.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to delete category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        #endregion
+
         #region Stock Tap
         public void LoadStock()
         {
-            if (Role == "Staff")
+            if (Role == "Staff" || Role == "Manager")
                 return;
             var stocks = S.GetAll();
             dgv_StockTap.DataSource = stocks;
@@ -296,8 +393,8 @@ namespace PresentationLayer
         }
         private void CheckLowStock()
         {
-            if(Role == "Staff")
-                return ;
+            if (Role == "Staff")
+                return;
             bool lowStockExists = false;
             foreach (DataGridViewRow row in dgv_dashStock.Rows)
             {
@@ -334,8 +431,15 @@ namespace PresentationLayer
 
             dgv_StockTap.DataSource = S.GetAll();
         }
+        private void btn_filter_Click(object sender, EventArgs e)
+        {
+            int SupplierId = Convert.ToInt32(cmb_filtersupplier.SelectedValue);
+            var results = S.GetSupplyHistory(SupplierId);
+            cmb_filtersupplier.Refresh();
+            dgv_StockTap.Columns.Clear();
+            dgv_StockTap.DataSource = results;
+        }
         #endregion
-
 
         #region Sale Tap
         private void AddProduct_Click(object sender, EventArgs e)
@@ -416,11 +520,6 @@ namespace PresentationLayer
         {
             dgv_Sale.DataSource = SaleService.GetSalesWithoutNoName();
             var sales = SaleService.GetSalesWithoutNoName();
-            if (sales.Count == 0)
-            {
-                MessageBox.Show("No sales data available.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
         }
         int SaleId;
         private void dgv_Sale_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -442,12 +541,6 @@ namespace PresentationLayer
 
             var sales = SaleService.GetAll();
 
-            if (sales == null || sales.Count == 0)
-            {
-                MessageBox.Show("No sales records found.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
             CB_SALES.DataSource = sales;
             CB_SALES.DisplayMember = "Customer_Name";
             CB_SALES.ValueMember = "Id";
@@ -456,7 +549,6 @@ namespace PresentationLayer
         {
             try
             {
-
                 myshoereport.Visible = true;
                 await LoadHtmlReport((int)CB_SALES.SelectedValue);
             }
@@ -478,7 +570,7 @@ namespace PresentationLayer
 
             // 🟢 إجبار WebView2 على إعادة تحميل الصفحة بعد كل اختيار جديد
             myshoereport.Source = new Uri("about:blank");
-            await Task.Delay(100); // إعطاء وقت قصير لإعادة التهيئة
+            await Task.Delay(100);
             myshoereport.Source = new Uri(reportPath);
         }
         private void loadProductInCB()
@@ -555,7 +647,6 @@ namespace PresentationLayer
             string supplierContact = txt_contact.Text.Trim();
             string supplierAddress = txt_Address.Text.Trim();
 
-
             if (CheckEmptyInput(supplierName, "Name") ||
                 CheckEmptyInput(supplierContact, "Contact") ||
                 CheckEmptyInput(supplierAddress, "Address"))
@@ -567,16 +658,12 @@ namespace PresentationLayer
                 MessageBox.Show("Invalid phone number. Please enter a valid number (10-15 digits).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-
             var existingSupplier = supplierService.GetSupplierByname(supplierName);
             if (existingSupplier != null)
             {
                 MessageBox.Show("Supplier with this name already exists!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-
             bool isAdded = supplierService.Add(supplierName, supplierAddress, supplierContact);
             if (isAdded)
             {
@@ -589,12 +676,9 @@ namespace PresentationLayer
                 MessageBox.Show("Failed to add supplier. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
         private string originalName = "";
         private string originalContact = "";
         private string originalAddress = "";
-
         private void dgv_supplier_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -618,7 +702,6 @@ namespace PresentationLayer
                 btn_Delete.Enabled = true;
             }
         }
-
         private void btn_Update_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(lbl_Id.Text))
@@ -669,8 +752,6 @@ namespace PresentationLayer
                 MessageBox.Show("Please select a supplier first.");
             }
         }
-
-
         private void btn_Delete_Click(object sender, EventArgs e)
         {
             int supplierId = int.Parse(lbl_Id.Text);
@@ -825,7 +906,6 @@ namespace PresentationLayer
         }
         private void dgv_Users_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-
             var row = dgv_Users.SelectedRows[0];
             selectedUserId = (int)row.Cells["Id"].Value;
             txt_UserName.Text = row.Cells["UserName"].Value.ToString();
@@ -967,7 +1047,7 @@ namespace PresentationLayer
             cmb_searchRole.Refresh();
             LoadUsers();
         }
-       
+        #endregion
         public void SetUserTabs(string role)
         {
             Role = role;
@@ -975,6 +1055,18 @@ namespace PresentationLayer
             {
                 if (materialTabControl1.TabPages.Contains(Users))
                     materialTabControl1.TabPages.Remove(Users);
+
+                if (materialTabControl1.TabPages.Contains(Category))
+                    materialTabControl1.TabPages.Remove(Category);
+
+                if (materialTabControl1.TabPages.Contains(Suppliers))
+                    materialTabControl1.TabPages.Remove(Suppliers);
+
+                if (materialTabControl1.TabPages.Contains(Stock))
+                    materialTabControl1.TabPages.Remove(Stock);
+
+                if (materialTabControl1.TabPages.Contains(Sales))
+                    materialTabControl1.TabPages.Remove(Sales);
             }
             else if (role == "Staff")
             {
@@ -994,7 +1086,5 @@ namespace PresentationLayer
                     materialTabControl1.TabPages.Remove(Stock);
             }
         }
-
-        #endregion
     }
 }

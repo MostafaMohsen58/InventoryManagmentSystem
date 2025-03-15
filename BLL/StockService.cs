@@ -30,5 +30,21 @@ namespace BLL
 
             return query.ToList();
         }
+        public List <dynamic> GetSupplyHistory(int supplierId)
+        {
+            var result = _context.Stocks
+                .Where(s => s.Type == "Supply" && s.Product.SupplierId == supplierId)
+                .Select(s => new
+                {
+                    ProductName = s.Product.Name,
+                    s.Quantity,
+                    s.LastUpdate,
+                    s.Type,
+                    TotalPrice = s.Quantity * s.Product.Price
+                })
+                .OrderByDescending(s => s.LastUpdate)
+                .ToList<dynamic>();
+            return result;
+        }
     }
 }

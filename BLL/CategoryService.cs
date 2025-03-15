@@ -14,7 +14,6 @@ namespace BLL
         {
             context = new InventoryDbContext(); ;
         }
-
         public bool AddCategory(string name)
         {
             var category = new Category
@@ -26,7 +25,6 @@ namespace BLL
             var rowsAffected = context.SaveChanges();
             return rowsAffected > 0;
         }
-
         public bool UpdateCategory(int id, string name)
         {
             var oldCategory = context.Categories.Find(id);
@@ -40,7 +38,6 @@ namespace BLL
             var rowsAffected = context.SaveChanges();
             return rowsAffected > 0;
         }
-
         public bool DeleteCategory(int id)
         {
             var category = context.Categories.Find(id);
@@ -53,18 +50,9 @@ namespace BLL
             var rowsAffected = context.SaveChanges();
             return rowsAffected > 0;
         }
-
         public List<Category> GetAllCategories()
         {
             return context.Categories.ToList();
         }
-
-        public Category? GetCategoryById(int id)
-        {
-            var category = context.Categories.Find(id);
-            return category != null ? category : null;
-        }
-
-        
     }
 }

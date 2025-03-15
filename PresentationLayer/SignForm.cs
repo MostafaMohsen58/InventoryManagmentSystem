@@ -83,33 +83,10 @@ namespace PresentationLayer
                 adminDashBoard.SetUserTabs(role);
                 adminDashBoard.ShowDialog();
                 this.Close();
-                //if (role == "Admin")
-                //{
-                //    this.Hide();
-                //    AdminDashBoard adminDashBoard = new AdminDashBoard();
-                //    adminDashBoard.SetUserTabs("Admin");
-                //    adminDashBoard.ShowDialog();
-
-                //    this.Close();
-                //}
-                //else if (role == "Manager")
-                //{
-                //    this.Hide();
-                //    ManagerForm managerForm = new ManagerForm();
-                //    managerForm.ShowDialog();
-                //    this.Close();
-                //}
-                //else if (role == "Staff")
-                //{
-                //    this.Hide();
-                //    StaffForm staff = new StaffForm();
-                //    staff.ShowDialog();
-                //    this.Close();
-                //}
             }
             else
             {
-                MessageBox.Show("U cant Login Ask MAnger!", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("The Username or Password is Incorrect.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
