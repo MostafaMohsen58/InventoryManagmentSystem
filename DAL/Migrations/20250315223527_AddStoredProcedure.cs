@@ -22,6 +22,7 @@ namespace InventoryManagmentSystem.DAL.Migrations
                      SUM(s.Quantity) AS StockLevel
                  FROM dbo.Products p
                  INNER JOIN dbo.Stocks s ON p.ProductId = s.ProductId
+                 Where s.Type ='Supply'
                  GROUP BY p.Name
                  HAVING SUM(s.Quantity) > 0
                  ORDER BY StockLevel DESC;

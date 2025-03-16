@@ -99,7 +99,7 @@ Make sure you have the following installed:
 
 ## 📌 ERD (Entity Relationship Diagram)
 
-![Sample Image](https://github.com/MostafaMohsen58/InventoryManagmentSystem/blob/main/images/Inventory_ERD.png)
+![Sample Image](https://github.com/MostafaMohsen58/InventoryManagmentSystem/blob/main/images/erd.png)
 
 ---
 
@@ -129,15 +129,20 @@ Here are some screenshots of the application:
 
 ### Dashboard
 
+![Dashboard](https://github.com/MostafaMohsen58/InventoryManagmentSystem/blob/main/images/DashBoard_main.png)
 ![Dashboard](https://github.com/MostafaMohsen58/InventoryManagmentSystem/blob/main/images/dashboard1.png)
 
 ### Add new product Dialog
 
 ![Add product dialog](https://github.com/MostafaMohsen58/InventoryManagmentSystem/blob/main/images/Product.png)
 
-### Viewing Reports
+### Viewing reports
 
-## ![View Reports](https://github.com/MostafaMohsen58/InventoryManagmentSystem/blob/main/images/report.png)
+![View Reports](https://github.com/MostafaMohsen58/InventoryManagmentSystem/blob/main/images/Report.png)
+
+### Viewing invoices
+
+![View invoices](https://github.com/MostafaMohsen58/InventoryManagmentSystem/blob/main/images/Invoice.png)
 
 ### 💡 Troubleshooting & FAQs
 
