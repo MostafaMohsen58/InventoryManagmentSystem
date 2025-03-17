@@ -17,14 +17,17 @@ namespace InventoryManagmentSystem.DAL.Migrations
              AS
              BEGIN
                  SET NOCOUNT ON;
+             
                  SELECT  
-                     p.Name AS ProductName, 
-                     SUM(s.Quantity) AS StockLevel
+                     p.Name AS ProductName,
+                     ISNULL(SUM(CASE WHEN s.Type = 'Supply' THEN s.Quantity ELSE 0 END), 0) - 
+                     ISNULL(SUM(CASE WHEN s.Type = 'Sale' THEN s.Quantity ELSE 0 END), 0) AS StockLevel
                  FROM dbo.Products p
                  INNER JOIN dbo.Stocks s ON p.ProductId = s.ProductId
-                 Where s.Type ='Supply'
                  GROUP BY p.Name
-                 HAVING SUM(s.Quantity) > 0
+                 HAVING 
+                     ISNULL(SUM(CASE WHEN s.Type = 'Supply' THEN s.Quantity ELSE 0 END), 0) - 
+                     ISNULL(SUM(CASE WHEN s.Type = 'Sale' THEN s.Quantity ELSE 0 END), 0) > 0
                  ORDER BY StockLevel DESC;
              END;
              ");

@@ -59,8 +59,8 @@ namespace DAL
                 new Supplier { Id = 4, Name = "LG Electronics", Address = "LG Twin Towers, Seoul, South Korea", Contact = "82 2 3777 1114" },
                 new Supplier { Id = 5, Name = "Canon", Address = "30-2, Shimomaruko 3-chome, Ota-ku, Tokyo, Japan", Contact = "81 3 3758 2111" },
                 new Supplier { Id = 6, Name = "Nikon", Address = "Shinagawa Intercity Tower C, 2-15-3, Konan, Minato-ku, Tokyo, Japan", Contact = "81 3 6433 3600" },
-                new Supplier { Id = 7, Name = "Dell", Address = "Round Rock, Texas, USA", Contact = "1 800-624-9897" },
-                new Supplier { Id = 8, Name = "HP", Address = "1501 Page Mill Road, Palo Alto, CA 94304, USA", Contact = "1 650-857-1501" }
+                new Supplier { Id = 7, Name = "Dell", Address = "Round Rock, Texas, USA", Contact = "1 800 624 9897" },
+                new Supplier { Id = 8, Name = "HP", Address = "1501 Page Mill Road, Palo Alto, CA 94304, USA", Contact = "1 650 857 1501" }
             );
 
             modelBuilder.Entity<Product>().HasData(

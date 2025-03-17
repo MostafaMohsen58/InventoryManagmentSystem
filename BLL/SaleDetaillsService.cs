@@ -111,8 +111,16 @@ namespace BLL
             sale.Total_Price += (price ?? product.Price) * quantity;
             _context.Sales.Update(sale);
 
-            oldStock.Quantity -= quantity;
-            _context.Stocks.Update(oldStock);
+            //oldStock.Quantity -= quantity;
+            //_context.Stocks.Update(oldStock);
+            var newStock = new Stock
+            {
+                Type = "Sale",
+                Quantity = quantity, // Deduct sold items
+                LastUpdate = DateTime.Now,
+                ProductId = productId
+            };
+            _context.Stocks.Add(newStock);
 
             return _context.SaveChanges() > 0;
         }

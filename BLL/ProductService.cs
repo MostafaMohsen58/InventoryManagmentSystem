@@ -89,7 +89,7 @@ namespace BLL
             var products = dbContext.Products.Include(p => p.Category)
                                      .Include(p => p.Supplier)
                                      .Include(p => p.Stocks)
-                                     .Where(p => p.Stocks.Any(s => s.Quantity > 0 && s.Type == "Supply"))
+                                     .Where(p => p.Stocks.Any(s => s.Quantity > 0 ))
                                      .Select(p => new
                                      {
                                          p.ProductId,
@@ -97,7 +97,9 @@ namespace BLL
                                          p.Price,
                                          CategoryName = p.Category.Name,
                                          SupplierName = p.Supplier.Name,
-                                         TotalStock = p.Stocks.Where(s => s.Type == "Supply").Sum(s => s.Quantity)
+                                         TotalStock = (p.Stocks.Where(s => s.Type == "Supply").Sum(s => (int?)s.Quantity) ?? 0) -
+                                                 (p.Stocks.Where(s => s.Type == "Sale").Sum(s => (int?)s.Quantity) ?? 0)
+
                                      })
                                      .ToList();
             return products;

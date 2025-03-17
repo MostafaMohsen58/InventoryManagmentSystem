@@ -1858,7 +1858,7 @@
             groupBox7.Size = new Size(912, 110);
             groupBox7.TabIndex = 3;
             groupBox7.TabStop = false;
-            groupBox7.Text = "Filter";
+            groupBox7.Text = "Supplier history ";
             // 
             // btn_filter
             // 

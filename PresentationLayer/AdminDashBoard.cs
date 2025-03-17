@@ -314,6 +314,7 @@ namespace PresentationLayer
             {
                 MessageBox.Show("Category added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadCategory();
+                LoadSuppliers();
                 ResetCat();
             }
             else
@@ -335,6 +336,7 @@ namespace PresentationLayer
             {
                 MessageBox.Show("Category updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadCategory();
+                LoadSuppliers();
                 ResetCat();
             }
             else
@@ -366,6 +368,7 @@ namespace PresentationLayer
                 {
                     MessageBox.Show("Category deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadCategory();
+                    LoadSuppliers();
                     txt_CategoryName.Clear();
                 }
                 else
@@ -644,11 +647,14 @@ namespace PresentationLayer
             cmb_searchProdSupplier.ValueMember = "Id";
             cmb_searchProdSupplier.DisplayMember = "Name";
             cmb_searchProdSupplier.SelectedIndex = -1;
-            cmb_SupProduct.DataSource = supplierService.GetAll();
+            //cmb_SupProduct.DataSource = supplierService.GetAll();
+            cmb_SupProduct.DataSource = suppliers;
+
             cmb_SupProduct.ValueMember = "Id";
             cmb_SupProduct.DisplayMember = "Name";
             cmb_SupProduct.SelectedIndex = -1;
-            cmb_filtersupplier.DataSource = supplierService.GetAll();
+            //cmb_filtersupplier.DataSource = supplierService.GetAll();
+            cmb_filtersupplier.DataSource = suppliers;
             cmb_filtersupplier.ValueMember = "Id";
             cmb_filtersupplier.DisplayMember = "Name";
             cmb_filtersupplier.SelectedIndex = -1;
@@ -713,6 +719,7 @@ namespace PresentationLayer
             {
                 MessageBox.Show("Supplier added successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadSuppliers();
+                LoadProducts();
                 ResetInputs();
             }
             else
@@ -781,6 +788,7 @@ namespace PresentationLayer
                 {
                     MessageBox.Show("Supplier updated successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadSuppliers();
+                    LoadProducts();
                     ResetInputs();
                     btn_Add.Enabled = true;
                     btn_Update.Enabled = false;
@@ -810,6 +818,7 @@ namespace PresentationLayer
                     {
                         MessageBox.Show("Supplier deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadSuppliers();
+                        LoadProducts();
                         ResetInputs();
                     }
                     else
