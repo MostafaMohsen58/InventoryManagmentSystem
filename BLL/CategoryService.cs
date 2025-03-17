@@ -38,17 +38,22 @@ namespace BLL
             var rowsAffected = context.SaveChanges();
             return rowsAffected > 0;
         }
-        public bool DeleteCategory(int id)
+        public string DeleteCategory(int id)
         {
             var category = context.Categories.Find(id);
             if (category == null)
             {
-                return false;
+                return "The category is not available.";
             }
+            var hasProducts = context.Products.Any(p => p.CategoryId == id);
 
+            if (hasProducts)
+            {
+                return "The category cannot be deleted because it is associated with products.";
+            }
             context.Categories.Remove(category);
-            var rowsAffected = context.SaveChanges();
-            return rowsAffected > 0;
+            context.SaveChanges();
+            return "Category deleted successfully!";
         }
         public List<Category> GetAllCategories()
         {

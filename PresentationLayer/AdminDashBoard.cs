@@ -371,17 +371,17 @@ namespace PresentationLayer
             DialogResult result = MessageBox.Show("Are you sure you want to delete this category?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
-                var IsDeleted = GS.DeleteCategory(CategoryId);
-                if (IsDeleted)
+                var MSG = GS.DeleteCategory(CategoryId);
+                if (MSG == "Category deleted successfully!")
                 {
-                    MessageBox.Show("Category deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(MSG, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadCategory();
                     LoadSuppliers();
                     txt_CategoryName.Clear();
                 }
                 else
                 {
-                    MessageBox.Show("Failed to delete category.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(MSG, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
