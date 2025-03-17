@@ -242,10 +242,18 @@ namespace PresentationLayer
             DialogResult response = MessageBox.Show("Are you sure you Want to delete this product?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (response == DialogResult.Yes)
             {
-                PS.Delete(ProductId);
-                MessageBox.Show("Product deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadProducts();
-                btn_ResetProduct_Click(sender, e);
+                string result = PS.Delete(ProductId);
+
+                if (result == "Product deleted successfully!")
+                {
+                    MessageBox.Show(result, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadProducts();
+                    btn_ResetProduct_Click(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show(result, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         private void btn_searchProduct_Click(object sender, EventArgs e)
@@ -518,6 +526,7 @@ namespace PresentationLayer
         private void LoadSaleData()
         {
             dgv_Sale.DataSource = SaleService.GetSalesWithoutNoName();
+            dgv_Sale.Columns["Id"].Visible = false;
             var sales = SaleService.GetSalesWithoutNoName();
         }
         int SaleId;

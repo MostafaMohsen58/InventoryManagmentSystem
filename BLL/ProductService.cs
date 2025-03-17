@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using DAL;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
@@ -68,16 +64,26 @@ namespace BLL
                 dbContext.SaveChanges();
             }
         }
-        public void Delete(int id)
+        public string Delete(int id)
         {
             var product = dbContext.Products.Where(p =>p.ProductId == id).FirstOrDefault();
 
-            if (product != null)
+            if (product == null)
             {
-                //dbContext.Stocks.RemoveRange(product.Stocks);
-                dbContext.Products.Remove(product);
-                dbContext.SaveChanges();
+                return "The product is not available.";
             }
+            var hasSales = dbContext.SalesDetails.Any(sd => sd.ProductId == id);
+            var hasStock = dbContext.Stocks.Any(s => s.ProductId == id);
+
+            if (hasSales || hasStock)
+            {
+                return("The product cannot be deleted because it is associated with sales or inventory.");
+            }
+
+            //dbContext.Stocks.RemoveRange(product.Stocks);
+            dbContext.Products.Remove(product);
+            dbContext.SaveChanges();
+            return ("Product deleted successfully!");
         }
         public IEnumerable<object> GetAll()
         {
@@ -167,6 +173,5 @@ namespace BLL
             var result = GetAll().ToList();
             return result.Count(p => (int)p.GetType().GetProperty("TotalStock").GetValue(p) < 10);
         }
-
     }
 }

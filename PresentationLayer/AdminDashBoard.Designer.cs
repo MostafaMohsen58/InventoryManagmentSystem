@@ -956,18 +956,17 @@
             dgv_dashStock.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dgv_dashStock.RowHeadersWidth = 51;
             dgv_dashStock.RowTemplate.Height = 40;
-            dgv_dashStock.Size = new Size(481, 297);
+            dgv_dashStock.Size = new Size(874, 297);
             dgv_dashStock.TabIndex = 6;
             dgv_dashStock.CellFormatting += dgv_dashStock_CellFormatting;
             // 
             // Status
             // 
-            Status.FillWeight = 80F;
             Status.HeaderText = "Stock Status";
             Status.MinimumWidth = 80;
             Status.Name = "Status";
             Status.ReadOnly = true;
-            Status.Resizable = DataGridViewTriState.False;
+            Status.Resizable = DataGridViewTriState.True;
             Status.ToolTipText = "Status";
             // 
             // materialFloatingActionButton3
@@ -3087,7 +3086,6 @@
         private Label lbl_dashTotalOrders;
         private MaterialSkin.Controls.MaterialLabel materialLabel17;
         private MaterialSkin.Controls.MaterialLabel materialLabel18;
-        private DataGridViewTextBoxColumn Status;
         private GroupBox groupBox4;
         private MaterialSkin.Controls.MaterialButton btn_StockReset;
         private MaterialSkin.Controls.MaterialButton btn_StockSearch;
@@ -3144,5 +3142,6 @@
         private MaterialSkin.Controls.MaterialLabel lbl_cat;
         private MaterialSkin.Controls.MaterialTextBox txt_CategoryName;
         private MaterialSkin.Controls.MaterialButton btn_print;
+        private DataGridViewTextBoxColumn Status;
     }
 }

@@ -145,7 +145,8 @@ namespace DAL
             modelBuilder.Entity<SalesDetails>()
                 .HasOne(sd => sd.Product)
                 .WithMany(p => p.SalesDetails)
-                .HasForeignKey(sd => sd.ProductId);
+                .HasForeignKey(sd => sd.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SalesDetails>()
                 .HasOne(sd => sd.Sale)
@@ -156,7 +157,7 @@ namespace DAL
                 .HasOne(s => s.Product)
                 .WithMany(p => p.Stocks)
                 .HasForeignKey(s => s.ProductId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Stock>()
                 .HasKey(s => new { s.LastUpdate, s.ProductId });
