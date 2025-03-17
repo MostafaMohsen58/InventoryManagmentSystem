@@ -577,14 +577,14 @@ namespace InventoryManagmentSystem.DAL.Migrations
                         {
                             Id = 7,
                             Address = "Round Rock, Texas, USA",
-                            Contact = "1 800-624-9897",
+                            Contact = "1 800 624 9897",
                             Name = "Dell"
                         },
                         new
                         {
                             Id = 8,
                             Address = "1501 Page Mill Road, Palo Alto, CA 94304, USA",
-                            Contact = "1 650-857-1501",
+                            Contact = "1 650 857 1501",
                             Name = "HP"
                         });
                 });
@@ -620,30 +620,9 @@ namespace InventoryManagmentSystem.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            Password = "admin1234",
+                            Password = "123456789",
                             Role = "Admin",
-                            UserName = "Admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Password = "Manager1234",
-                            Role = "Manager",
-                            UserName = "Manager"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Password = "user1234",
-                            Role = "Staff",
-                            UserName = "Staff"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Password = "Ali1234",
-                            Role = "Staff",
-                            UserName = "Ali"
+                            UserName = "admin"
                         });
                 });
 
@@ -671,7 +650,7 @@ namespace InventoryManagmentSystem.DAL.Migrations
                     b.HasOne("DAL.Models.Product", "Product")
                         .WithMany("SalesDetails")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Sale", "Sale")
@@ -690,7 +669,7 @@ namespace InventoryManagmentSystem.DAL.Migrations
                     b.HasOne("DAL.Models.Product", "Product")
                         .WithMany("Stocks")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Product");
