@@ -55,7 +55,7 @@ Make sure you have the following installed:
 - .NET SDK (version compatible with the project)
 - SQL Server
 - Visual Studio
-- SQL Server Reporting Services (SSRS) (optional, for reporting)
+- SQL Server Reporting Services (SSRS) (mandatory, for reporting)
 
 #### 🔹 Step 2: Database Setup
 
@@ -138,11 +138,13 @@ Here are some screenshots of the application:
 
 ### Viewing reports
 
-![View Reports](https://github.com/MostafaMohsen58/InventoryManagmentSystem/blob/main/images/Report.png)
+![View Reports](https://github.com/MostafaMohsen58/InventoryManagmentSystem/blob/main/images/report.png)
 
 ### Viewing invoices
 
 ![View invoices](https://github.com/MostafaMohsen58/InventoryManagmentSystem/blob/main/images/Invoice.png)
+
+---
 
 ### 💡 Troubleshooting & FAQs
 
