@@ -2901,7 +2901,7 @@
             dgv_Users.RowTemplate.ReadOnly = true;
             dgv_Users.Size = new Size(504, 267);
             dgv_Users.TabIndex = 27;
-            dgv_Users.ColumnHeaderMouseClick += dgv_Users_RowHeaderMouseClick;
+            dgv_Users.RowHeaderMouseDoubleClick += dgv_Users_RowHeaderMouseClick;
             // 
             // btn_LogOut
             // 

@@ -41,7 +41,6 @@ namespace PresentationLayer
         private async void AdminDashBoard_Load(object sender, EventArgs e)
         {
             LoadProducts();
-            LoadSupplier();
             LoadCategory();
             LoadStock();
             btn_deleteProduct.Visible = false;
@@ -54,7 +53,6 @@ namespace PresentationLayer
             lbl_dashLowStock.Text = PS.GetLowStockProdCount().ToString();
             await Task.Delay(500);
             CheckLowStock();
-            loadProductInCB();
             LoadSaleData();
             LoadSalesIntoComboBox();
             cmb_Role.SelectedIndex = -1;
@@ -120,22 +118,19 @@ namespace PresentationLayer
             }).ToList();
             cmb_stockProd.ValueMember = "Id";
             cmb_stockProd.DisplayMember = "Name";
-        }
-        public void LoadSupplier()
-        {
-            SupplierService S = new SupplierService();
-            cmb_searchProdSupplier.DataSource = S.GetAll();
-            cmb_searchProdSupplier.ValueMember = "Id";
-            cmb_searchProdSupplier.DisplayMember = "Name";
-            cmb_searchProdSupplier.SelectedIndex = -1;
-            cmb_SupProduct.DataSource = S.GetAll();
-            cmb_SupProduct.ValueMember = "Id";
-            cmb_SupProduct.DisplayMember = "Name";
-            cmb_SupProduct.SelectedIndex = -1;
-            cmb_filtersupplier.DataSource = S.GetAll();
-            cmb_filtersupplier.ValueMember = "Id";
-            cmb_filtersupplier.DisplayMember = "Name";
-            cmb_filtersupplier.SelectedIndex = -1;
+
+            var allProduct = PS.GetAll().ToList();
+
+            if (allProduct.Count == 0)
+            {
+                MessageBox.Show("No products available.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            CB_Product.DataSource = allProduct;
+            CB_Product.DisplayMember = "Name";
+            CB_Product.ValueMember = "ProductId";
+            CB_Product.SelectedIndex = -1; // Optionally clear the selected item
         }
         public void LoadCategory()
         {
@@ -552,7 +547,7 @@ namespace PresentationLayer
             {
                 myshoereport.BackColor = Color.White;
                 myshoereport.Visible = true;
-                btn_print.Enabled = false; 
+                btn_print.Enabled = false;
 
                 await LoadHtmlReport((int)CB_SALES.SelectedValue);
             }
@@ -571,16 +566,16 @@ namespace PresentationLayer
             if (string.IsNullOrEmpty(reportPath))
             {
                 MessageBox.Show("No sales data available.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                btn_print.Enabled = false; 
+                btn_print.Enabled = false;
                 return;
             }
 
-            btn_print.Enabled = false; 
+            btn_print.Enabled = false;
 
             myshoereport.NavigationCompleted -= WebView_NavigationCompleted;
             myshoereport.NavigationCompleted += WebView_NavigationCompleted;
 
-            myshoereport.Source = new Uri("about:blank"); 
+            myshoereport.Source = new Uri("about:blank");
             await Task.Delay(100);
             myshoereport.Source = new Uri(reportPath);
         }
@@ -589,14 +584,14 @@ namespace PresentationLayer
         {
             if (e.IsSuccess && myshoereport.Source != null)
             {
-                
+
                 string content = await myshoereport.ExecuteScriptAsync(
                     "document.body.innerText.trim().length > 0 ? 'loaded' : 'empty';"
                 );
 
                 if (content.Contains("loaded"))
                 {
-                    btn_print.Enabled = true; 
+                    btn_print.Enabled = true;
                 }
                 else
                 {
@@ -605,7 +600,7 @@ namespace PresentationLayer
             }
             else
             {
-                btn_print.Enabled = false; 
+                btn_print.Enabled = false;
             }
         }
 
@@ -620,22 +615,8 @@ namespace PresentationLayer
             await myshoereport.ExecuteScriptAsync("window.print();");
         }
 
+
         
-        private void loadProductInCB()
-        {
-            var allProduct = PS.GetAll().ToList();
-
-            if (allProduct.Count == 0)
-            {
-                MessageBox.Show("No products available.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            CB_Product.DataSource = allProduct;
-            CB_Product.DisplayMember = "Name";
-            CB_Product.ValueMember = "ProductId";
-            CB_Product.SelectedIndex = -1; // Optionally clear the selected item
-        }
         #endregion
 
         #region Helper methods
@@ -656,6 +637,21 @@ namespace PresentationLayer
 
             // Bind the data
             dgv_supplier.DataSource = suppliers;
+
+
+            //cmb_searchProdSupplier.DataSource = supplierService.GetAll();
+            cmb_searchProdSupplier.DataSource = suppliers;
+            cmb_searchProdSupplier.ValueMember = "Id";
+            cmb_searchProdSupplier.DisplayMember = "Name";
+            cmb_searchProdSupplier.SelectedIndex = -1;
+            cmb_SupProduct.DataSource = supplierService.GetAll();
+            cmb_SupProduct.ValueMember = "Id";
+            cmb_SupProduct.DisplayMember = "Name";
+            cmb_SupProduct.SelectedIndex = -1;
+            cmb_filtersupplier.DataSource = supplierService.GetAll();
+            cmb_filtersupplier.ValueMember = "Id";
+            cmb_filtersupplier.DisplayMember = "Name";
+            cmb_filtersupplier.SelectedIndex = -1;
 
         }
 
@@ -1134,6 +1130,5 @@ namespace PresentationLayer
                     materialTabControl1.TabPages.Remove(Stock);
             }
         }
-
     }
 }
