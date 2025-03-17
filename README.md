@@ -66,7 +66,7 @@ Make sure you have the following installed:
 ```bash
 {
   "ConnectionStrings": {
-  "DefaultConnection":"Server=YOUR_SERVER;Database=InventoryDB;Trusted_Connection=True;"
+  "DefaultConnection":"Server=YOUR_SERVER;Database=InventoryDB;Trusted_Connection=True;Trust Server Certificate=True"
   }
 }
 ```
