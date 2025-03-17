@@ -45,12 +45,7 @@ namespace PresentationLayer
             LoadStock();
             btn_deleteProduct.Visible = false;
             btn_EditProduct.Visible = false;
-            lbl_CountOfProd.Text = PS.GetTotalCount().ToString();
-            lbl_dashTotalSales.Text = SaleService.GetTotalRevenue().ToString();
-            lbl_dashTotalCust.Text = SaleService.GetTotalCustomers().ToString();
-            lbl_dashBestSellingProd.Text = Sd.GetBestSellingProduct().ToString();
-            lbl_dashTotalOrders.Text = SaleService.GetTotalOrders().ToString();
-            lbl_dashLowStock.Text = PS.GetLowStockProdCount().ToString();
+            LoadCards();
             await Task.Delay(500);
             CheckLowStock();
             LoadSaleData();
@@ -60,6 +55,15 @@ namespace PresentationLayer
             LoadUsers();
             btn_editCat.Visible = false;
             btn_deleteCategory.Visible = false;
+        }
+        private void LoadCards()
+        {
+            lbl_CountOfProd.Text = PS.GetTotalCount().ToString();
+            lbl_dashTotalSales.Text = SaleService.GetTotalRevenue().ToString();
+            lbl_dashTotalCust.Text = SaleService.GetTotalCustomers().ToString();
+            lbl_dashBestSellingProd.Text = Sd.GetBestSellingProduct().ToString();
+            lbl_dashTotalOrders.Text = SaleService.GetTotalOrders().ToString();
+            lbl_dashLowStock.Text = PS.GetLowStockProdCount().ToString();
         }
         private void dgv_dashStock_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -221,6 +225,7 @@ namespace PresentationLayer
             MessageBox.Show("Product added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             System.Threading.Thread.Sleep(100);
             LoadProducts();
+            LoadCards();
             btn_ResetProduct_Click(sender, e);
         }
         private void btn_EditProduct_Click(object sender, EventArgs e)
@@ -235,6 +240,7 @@ namespace PresentationLayer
             PS.Update(ProductId, Name, Price, CategoryId, SupplierId);
             MessageBox.Show("Product updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadProducts();
+            LoadCards();
             btn_ResetProduct_Click(sender, e);
         }
         private void btn_deleteProduct_Click(object sender, EventArgs e)
@@ -248,6 +254,7 @@ namespace PresentationLayer
                 {
                     MessageBox.Show(result, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadProducts();
+                    LoadCards();
                     btn_ResetProduct_Click(sender, e);
                 }
                 else
@@ -520,6 +527,9 @@ namespace PresentationLayer
 
             //get new data
             LoadSaleData();
+            LoadStock();
+            LoadProducts();
+            LoadCards();
             dgv_SaleDetails.DataSource = null;
             LoadSalesIntoComboBox();
         }
@@ -844,14 +854,22 @@ namespace PresentationLayer
         private string lastDisplayedReport = "ProductStock";
         public string GetUrl(string name)
         {
-            return $"http://localhost/ReportServer?/Report%20Project/{name}&rs:Command=Render&rc:Toolbar=false&rc:Parameters=false&rc:Zoom=Page%20Width";
+            return $"http://localhost/ReportServer?/Report%20Project/{name}&rs:Command=Render&rc:Toolbar=false&rc:Parameters=false&rc:Zoom=Page%20Width&rs:ClearSession=true";
         }
 
-        private void btn_currentStock_Click(object sender, EventArgs e)
+        private async void btn_currentStock_Click(object sender, EventArgs e)
         {
             string url = GetUrl("ProductStock");
-            webView21.EnsureCoreWebView2Async(null);
+            if (webView21.CoreWebView2 == null)
+            {
+                await webView21.EnsureCoreWebView2Async(null);
+            }
+
             webView21.Visible = true;
+
+            webView21.Source = new Uri("about:blank");
+            await Task.Delay(20); 
+
             webView21.Source = new Uri(url);
         }
 

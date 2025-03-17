@@ -2292,6 +2292,7 @@
             // n_QTY
             // 
             n_QTY.Location = new Point(189, 237);
+            n_QTY.Maximum = new decimal(new int[] { 300, 0, 0, 0 });
             n_QTY.Name = "n_QTY";
             n_QTY.Size = new Size(202, 24);
             n_QTY.TabIndex = 22;

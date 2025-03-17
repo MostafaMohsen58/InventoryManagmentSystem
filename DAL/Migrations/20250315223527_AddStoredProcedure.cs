@@ -54,35 +54,42 @@ namespace InventoryManagmentSystem.DAL.Migrations
             // Stored Procedure for Low-Stock Products
             migrationBuilder.Sql(@"
              CREATE PROCEDURE GetLowStockProducts
-             AS
-             BEGIN
-                 SET NOCOUNT ON;
-                 SELECT 
-                     p.ProductId, 
-                     p.Name AS ProductName, 
-                     COALESCE(SUM(s.Quantity), 0) AS StockLevel
-                 FROM dbo.Products p
-                 LEFT JOIN dbo.Stocks s ON p.ProductId = s.ProductId
-                 GROUP BY p.ProductId, p.Name
-                 HAVING COALESCE(SUM(s.Quantity), 0) < 10
-                 ORDER BY StockLevel ASC;
-             END;
+               AS
+               BEGIN
+                   SET NOCOUNT ON;
+                   SELECT 
+                       p.ProductId, 
+                       p.Name AS ProductName, 
+                       ISNULL(SUM(CASE WHEN s.Type = 'Supply' THEN s.Quantity ELSE 0 END), 0) - 
+                       ISNULL(SUM(CASE WHEN s.Type = 'Sale' THEN s.Quantity ELSE 0 END), 0) AS StockLevel
+                   FROM dbo.Products p
+                   INNER JOIN dbo.Stocks s ON p.ProductId = s.ProductId
+                   GROUP BY p.ProductId, p.Name
+                   HAVING 
+               	ISNULL(SUM(CASE WHEN s.Type = 'Supply' THEN s.Quantity ELSE 0 END), 0) - 
+                       ISNULL(SUM(CASE WHEN s.Type = 'Sale' THEN s.Quantity ELSE 0 END), 0) < 10
+                   ORDER BY StockLevel ASC;
+               END;
          ");
 
             //Stored Procedure for Most Sold Products
             migrationBuilder.Sql(@"
-             CREATE PROCEDURE GetMostSoldProducts
+             CREATE PROCEDURE GetMostSoldProducts 
              AS
              BEGIN
                  SET NOCOUNT ON;
+             
                  SELECT 
                      p.ProductId, 
                      p.Name AS ProductName, 
-                     SUM(sd.Quantity) AS TotalSold
-                 FROM dbo.SalesDetails sd
-                 JOIN dbo.Products p ON sd.ProductId = p.ProductId
+                     ISNULL(SUM(s.Quantity), 0) AS TotalSold
+                 FROM dbo.Products p
+                 INNER JOIN dbo.Stocks s ON p.ProductId = s.ProductId
+                 WHERE s.Type = 'Sale'  -- Only consider sales transactions
                  GROUP BY p.ProductId, p.Name
+                 HAVING ISNULL(SUM(s.Quantity), 0) > 0
                  ORDER BY TotalSold DESC;
+             
              END;
          ");
         }
